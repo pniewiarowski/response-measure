@@ -13,19 +13,23 @@ def main() -> None:
         description="Measure server response time after request to provided URL.",
     )
 
-    parser.add_argument("url", metavar="URL", type=str, nargs=1)
-    parser.add_argument("--attempts", "-a", metavar="ATTEMPTS", type=int, nargs=1)
+    parser.add_argument("url", metavar="URL", type=str)
+    parser.add_argument("--attempts", "-a", metavar="ATTEMPTS", type=int, default=1)
     args = parser.parse_args()
 
-    url: str = args.url[0]
-    attempts: int = args.attempts[0]
+    url: str = args.url
+    attempts: int = args.attempts
 
     collection: ResponseCollection = ResponseCollection()
     finish_attempts = 0
     for i in range(attempts):
         try:
             response = requests.get(url)
-            result = ResponseResult(response.elapsed.total_seconds())
+            result = ResponseResult(
+                response_time=response.elapsed.total_seconds(),
+                requested_url=url,
+            )
+
             collection.append(result)
             signal.success(f"Hit to {url}: {result.response_time}s")
             finish_attempts += 1
