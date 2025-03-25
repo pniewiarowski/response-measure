@@ -1,4 +1,3 @@
-import argparse
 import requests
 
 from input.parser import Parser
