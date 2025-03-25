@@ -1,4 +1,5 @@
 import requests
+from urllib3.exceptions import NameResolutionError
 
 from input.parser import Parser
 from communication.signal import signal_success, signal_error, signal_warn
@@ -29,7 +30,6 @@ def main() -> None:
             break
 
     result.out()
-
 
 if __name__ == "__main__":
     main()
