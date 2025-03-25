@@ -2,11 +2,9 @@ from response.response import Response
 
 
 class ResultCollection:
-    def __init__(self, url: str, attempts: int) -> None:
+    def __init__(self, url: str) -> None:
         self.__results = []
         self.__url = url
-        self.__finish_attempts = 0
-        self.__attempts = attempts
 
     @property
     def url(self) -> str:
@@ -14,10 +12,7 @@ class ResultCollection:
 
     @property
     def finish_attempts(self) -> int:
-        return self.__finish_attempts
-
-    def increase_finish_attempts(self) -> None:
-        self.__finish_attempts += 1
+        return len(self.__results)
 
     def append(self, response: Response) -> None:
         self.__results.append(response)

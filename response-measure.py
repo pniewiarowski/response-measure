@@ -10,7 +10,7 @@ from result.terminal import TerminalResult
 
 def main() -> None:
     parser: Parser = Parser()
-    collection: ResultCollection = ResultCollection(parser.url, parser.attempts)
+    collection: ResultCollection = ResultCollection(parser.url)
     result: Result = TerminalResult(collection)
 
     for i in range(parser.attempts):
@@ -21,7 +21,6 @@ def main() -> None:
 
             collection.append(response)
             signal_success(f"Hit to {parser.url}: {response_time}s")
-            collection.increase_finish_attempts()
         except requests.exceptions.RequestException as e:
             signal_error(f"Could not connect to {parser.url}: {e}")
             continue
